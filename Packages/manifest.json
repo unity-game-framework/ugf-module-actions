@@ -1,7 +1,8 @@
 {
   "dependencies": {
-    "com.unity.ide.rider": "3.0.2",
-    "com.unity.test-framework": "1.1.18"
+    "com.ugf.actions": "file:../../ugf-actions/Packages/UGF.Actions",
+    "com.unity.ide.rider": "3.0.3",
+    "com.unity.test-framework": "1.1.19"
   },
   "scopedRegistries": [
     {
