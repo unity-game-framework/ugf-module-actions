@@ -1,0 +1,20 @@
+{
+    "name": "UGF.Module.Actions.Runtime.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d1121b85e53398e4ea9849dd6c0602d2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
