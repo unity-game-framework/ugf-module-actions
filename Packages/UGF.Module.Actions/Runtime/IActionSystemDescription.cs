@@ -5,10 +5,10 @@ namespace UGF.Module.Actions.Runtime
 {
     public interface IActionSystemDescription
     {
-        string UpdateGroupId { get; }
+        string GroupId { get; }
         IReadOnlyDictionary<string, IActionDescription> Actions { get; }
 
-        T Build<T>(IActionProvider provider, IActionContext context) where T : class, IActionSystem;
-        IActionSystem Build(IActionProvider provider, IActionContext context);
+        T Build<T>() where T : class, IActionSystem;
+        IActionSystem Build();
     }
 }

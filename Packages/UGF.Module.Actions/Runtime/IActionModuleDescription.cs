@@ -5,6 +5,7 @@ namespace UGF.Module.Actions.Runtime
 {
     public interface IActionModuleDescription : IApplicationModuleDescription
     {
+        IReadOnlyDictionary<string, IActionUpdateGroupDescription> Groups { get; }
         IReadOnlyDictionary<string, IActionSystemDescription> Systems { get; }
     }
 }
