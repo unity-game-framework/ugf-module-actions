@@ -2,7 +2,8 @@
     "name": "UGF.Module.Actions.Runtime.Tests",
     "rootNamespace": "",
     "references": [
-        "GUID:d1121b85e53398e4ea9849dd6c0602d2"
+        "GUID:d1121b85e53398e4ea9849dd6c0602d2",
+        "GUID:969476314b1722b4ebe2496882d81853"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
