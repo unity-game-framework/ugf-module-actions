@@ -125,7 +125,7 @@ namespace UGF.Module.Actions.Runtime
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
 
-            if (Description.Groups.TryGetValue(id, out IActionUpdateGroupDescription groupDescription)
+            if (m_groupDescriptions.TryGetValue(id, out IActionUpdateGroupDescription groupDescription)
                 && UpdateModule.TryGetGroup(groupDescription.UpdateGroupId, out IUpdateGroup updateGroup)
                 && updateGroup.TryGetSubGroup(groupDescription.Name, out group))
             {
