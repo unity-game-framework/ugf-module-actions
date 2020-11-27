@@ -1,5 +1,7 @@
 using NUnit.Framework;
 using UGF.Application.Runtime;
+using UGF.Module.Update.Runtime;
+using UGF.Update.Runtime;
 using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime.Tests
@@ -16,8 +18,11 @@ namespace UGF.Module.Actions.Runtime.Tests
             var module = application.GetModule<IActionModule>();
 
             Assert.NotNull(module);
+            Debug.Log(application.GetModule<IUpdateModule>().Provider.UpdateLoop.GetPlayerLoop().Print());
 
             application.Uninitialize();
+
+            Debug.Log(application.GetModule<IUpdateModule>().Provider.UpdateLoop.GetPlayerLoop().Print());
         }
 
         private IApplication CreateApplication()
