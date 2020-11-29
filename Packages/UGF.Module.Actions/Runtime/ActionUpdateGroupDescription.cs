@@ -1,16 +1,19 @@
-﻿using UGF.Actions.Runtime;
+﻿using System;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public class ActionUpdateGroupDescription : ActionUpdateGroupDescriptionBase
+    public class ActionUpdateGroupDescription : IActionUpdateGroupDescription
     {
-        public ActionUpdateGroupDescription(string updateGroupId, string name) : base(updateGroupId, name)
-        {
-        }
+        public string UpdateGroupId { get; }
+        public string Name { get; }
 
-        protected override IActionUpdateGroup OnBuild(IActionProvider provider, IActionContext context)
+        protected ActionUpdateGroupDescription(string updateGroupId, string name)
         {
-            return new ActionUpdateGroup(Name, provider, context);
+            if (string.IsNullOrEmpty(updateGroupId)) throw new ArgumentException("Value cannot be null or empty.", nameof(updateGroupId));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentException("Value cannot be null or empty.", nameof(name));
+
+            UpdateGroupId = updateGroupId;
+            Name = name;
         }
     }
 }
