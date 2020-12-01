@@ -7,35 +7,46 @@
       "dependencies": {}
     },
     "com.ugf.application": {
-      "version": "5.3.0",
-      "depth": 2,
+      "version": "file:D:/Workspace/Unity Game Framework/ugf-application/Packages/UGF.Application",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.ugf.initialize": "2.6.0",
+        "com.ugf.customsettings": "3.4.0",
+        "com.ugf.editortools": "1.7.0"
+      }
+    },
+    "com.ugf.builder": {
+      "version": "file:D:/Workspace/Unity Game Framework/ugf-builder/Packages/UGF.Builder",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
+    "com.ugf.customsettings": {
+      "version": "3.4.0",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.ugf.initialize": "2.4.0",
-        "com.ugf.customsettings": "3.0.1",
-        "com.ugf.editortools": "1.5.1"
+        "com.ugf.editortools": "1.7.0"
       },
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
     },
-    "com.ugf.customsettings": {
-      "version": "3.3.0",
-      "depth": 2,
-      "source": "registry",
-      "dependencies": {
-        "com.ugf.editortools": "1.6.0"
-      },
-      "url": "https://api.bintray.com/npm/unity-game-framework/public"
+    "com.ugf.description": {
+      "version": "file:D:/Workspace/Unity Game Framework/ugf-description/Packages/UGF.Description",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
     },
     "com.ugf.editortools": {
       "version": "1.7.0",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
     },
     "com.ugf.initialize": {
-      "version": "2.4.0",
-      "depth": 3,
+      "version": "2.6.0",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
@@ -50,23 +61,21 @@
       }
     },
     "com.ugf.module.update": {
-      "version": "1.0.0",
-      "depth": 1,
-      "source": "registry",
+      "version": "file:D:/Workspace/Unity Game Framework/ugf-module-update/Packages/UGF.Module.Update",
+      "depth": 0,
+      "source": "local",
       "dependencies": {
         "com.ugf.application": "5.3.0",
-        "com.ugf.customsettings": "3.3.0",
-        "com.ugf.update": "5.1.0",
+        "com.ugf.customsettings": "3.4.0",
+        "com.ugf.update": "5.2.1",
         "com.ugf.editortools": "1.7.0"
-      },
-      "url": "https://api.bintray.com/npm/unity-game-framework/public"
+      }
     },
     "com.ugf.update": {
-      "version": "5.2.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://api.bintray.com/npm/unity-game-framework/public"
+      "version": "file:D:/Workspace/Unity Game Framework/ugf-update/Packages/UGF.Update",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
     },
     "com.unity.ext.nunit": {
       "version": "1.0.5",
