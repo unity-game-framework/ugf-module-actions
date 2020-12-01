@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime.Tests
 {
-    [CreateAssetMenu(menuName = "Tests/TestActionCommandDescriptionAsset")]
-    public class TestActionCommandDescriptionAsset : ActionDescriptionAsset<TestActionCommandAction>
+    [CreateAssetMenu(menuName = "Tests/TestActionCommandAsset")]
+    public class TestActionCommandAsset : ActionAsset<TestActionCommandAction>
     {
     }
 

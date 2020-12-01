@@ -1,6 +1,5 @@
 using System.Collections;
 using NUnit.Framework;
-using UGF.Actions.Runtime;
 using UGF.Application.Runtime;
 using UGF.Module.Update.Runtime;
 using UGF.Update.Runtime;
@@ -101,8 +100,8 @@ namespace UGF.Module.Actions.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("UpdateModule", typeof(IApplicationModuleAsset)),
-                        (IApplicationModuleAsset)Resources.Load("ActionModule", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("UpdateModule", typeof(IApplicationModuleBuilder)),
+                        (IApplicationModuleBuilder)Resources.Load("ActionModule", typeof(IApplicationModuleBuilder))
                     }
                 }
             });

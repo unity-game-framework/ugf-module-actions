@@ -5,15 +5,20 @@ using UnityEngine;
 namespace UGF.Module.Actions.Runtime.Tests
 {
     [CreateAssetMenu(menuName = "Tests/TestActionRotateTargetDescriptionAsset")]
-    public class TestActionRotateTargetDescriptionAsset : ActionDescriptionAssetBase
+    public class TestActionRotateTargetAsset : ActionDescribedAsset<TestActionRotateTargetDescription>
     {
         [SerializeField] private float m_speed = 1F;
 
         public float Speed { get { return m_speed; } set { m_speed = value; } }
 
-        protected override IActionDescription OnBuild()
+        protected override TestActionRotateTargetDescription OnBuildDescription()
         {
             return new TestActionRotateTargetDescription(m_speed);
+        }
+
+        protected override IAction OnBuild(TestActionRotateTargetDescription description)
+        {
+            return new TestActionRotateTarget(description);
         }
     }
 
@@ -24,11 +29,6 @@ namespace UGF.Module.Actions.Runtime.Tests
         public TestActionRotateTargetDescription(float speed)
         {
             Speed = speed;
-        }
-
-        protected override IAction OnBuild()
-        {
-            return new TestActionRotateTarget(this);
         }
     }
 

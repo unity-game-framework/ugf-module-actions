@@ -1,19 +1,23 @@
-﻿using System;
-using UGF.Actions.Runtime;
+﻿using UGF.Actions.Runtime;
 using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime.Tests
 {
     [CreateAssetMenu(menuName = "Tests/TestActionDescriptionAsset")]
-    public class TestActionDescriptionAsset : ActionDescriptionAssetBase
+    public class TestActionAsset : ActionDescribedAsset<TestActionDescription>
     {
         [SerializeField] private int m_value;
 
         public int Value { get { return m_value; } set { m_value = value; } }
 
-        protected override IActionDescription OnBuild()
+        protected override TestActionDescription OnBuildDescription()
         {
             return new TestActionDescription(m_value);
+        }
+
+        protected override IAction OnBuild(TestActionDescription description)
+        {
+            return new TestAction(description);
         }
     }
 
@@ -44,11 +48,6 @@ namespace UGF.Module.Actions.Runtime.Tests
         public TestActionDescription(int value)
         {
             Value = value;
-        }
-
-        protected override IAction OnBuild()
-        {
-            return new TestAction(this);
         }
     }
 }
