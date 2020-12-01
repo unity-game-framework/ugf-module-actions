@@ -4,24 +4,25 @@ using UGF.Application.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public interface IActionModule : IApplicationModuleDescribed<IActionModuleDescription>
+    public interface IActionModule : IApplicationModule
     {
+        new IActionModuleDescription Description { get; }
         IActionProvider Provider { get; }
         IActionContext Context { get; }
-        IReadOnlyDictionary<string, IActionUpdateGroupDescription> Groups { get; }
-        IReadOnlyDictionary<string, IActionSystemDescription> Systems { get; }
+        IReadOnlyDictionary<string, IActionUpdateGroup> Groups { get; }
+        IReadOnlyDictionary<string, IActionSystemDescribed> Systems { get; }
 
-        void AddGroup(string id, IActionUpdateGroupDescription description);
+        void AddGroup(string id, IActionUpdateGroup group);
         bool RemoveGroup(string id);
+        void AddSystem(string id, IActionSystemDescribed system);
+        bool RemoveSystem(string id);
         T GetGroup<T>(string id) where T : class, IActionUpdateGroup;
         IActionUpdateGroup GetGroup(string id);
         bool TryGetGroup<T>(string id, out T group) where T : class, IActionUpdateGroup;
         bool TryGetGroup(string id, out IActionUpdateGroup group);
-        void AddSystem(string id, IActionSystemDescription description);
-        bool RemoveSystem(string id);
-        T GetSystem<T>(string id) where T : class, IActionSystem;
-        IActionSystem GetSystem(string id);
-        bool TryGetSystem<T>(string id, out T system) where T : class, IActionSystem;
-        bool TryGetSystem(string id, out IActionSystem system);
+        T GetSystem<T>(string id) where T : class, IActionSystemDescribed;
+        IActionSystemDescribed GetSystem(string id);
+        bool TryGetSystem<T>(string id, out T system) where T : class, IActionSystemDescribed;
+        bool TryGetSystem(string id, out IActionSystemDescribed system);
     }
 }

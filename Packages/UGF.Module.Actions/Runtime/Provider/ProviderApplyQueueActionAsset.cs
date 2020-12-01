@@ -2,8 +2,8 @@
 
 namespace UGF.Module.Actions.Runtime.Provider
 {
-    [CreateAssetMenu(menuName = "UGF/Actions/Actions/Provider Apply Queue Action", order = 2000)]
-    public class ProviderApplyQueueActionAsset : ActionDescriptionAsset<ProviderApplyQueueAction>
+    [CreateAssetMenu(menuName = "Unity Game Framework/Actions/Actions/Provider Apply Queue Action", order = 2000)]
+    public class ProviderApplyQueueActionAsset : ActionAsset<ProviderApplyQueueAction>
     {
     }
 }

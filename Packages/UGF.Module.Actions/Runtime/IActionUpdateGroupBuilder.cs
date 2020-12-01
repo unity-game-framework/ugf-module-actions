@@ -1,10 +1,10 @@
 ﻿using UGF.Actions.Runtime;
+using UGF.Builder.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public interface IActionUpdateGroupBuilder
+    public interface IActionUpdateGroupBuilder : IBuilder<(IActionProvider provider, IActionContext context), IActionUpdateGroup>
     {
-        T Build<T>(IActionProvider provider, IActionContext context) where T : class, IActionUpdateGroup;
         IActionUpdateGroup Build(IActionProvider provider, IActionContext context);
     }
 }

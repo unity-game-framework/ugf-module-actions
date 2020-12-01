@@ -5,49 +5,51 @@ using System.Linq;
 using UGF.Actions.Runtime;
 using UGF.Application.Runtime;
 using UGF.Module.Update.Runtime;
-using UGF.Update.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public class ActionModule : ApplicationModuleDescribed<ActionModuleDescription>, IActionModule
+    public class ActionModule : ApplicationModule<ActionModuleDescription>, IActionModule
     {
         public IActionProvider Provider { get; }
         public IActionContext Context { get; }
-        public IReadOnlyDictionary<string, IActionUpdateGroupDescription> Groups { get; }
-        public IReadOnlyDictionary<string, IActionSystemDescription> Systems { get; }
         public IUpdateModule UpdateModule { get; }
+        public IReadOnlyDictionary<string, IActionUpdateGroup> Groups { get; }
+        public IReadOnlyDictionary<string, IActionSystemDescribed> Systems { get; }
 
-        IActionModuleDescription IApplicationModuleDescribed<IActionModuleDescription>.Description { get { return Description; } }
+        IActionModuleDescription IActionModule.Description { get { return Description; } }
 
-        private readonly Dictionary<string, IActionUpdateGroupDescription> m_groupDescriptions = new Dictionary<string, IActionUpdateGroupDescription>();
-        private readonly Dictionary<string, IActionSystemDescription> m_systemDescriptions = new Dictionary<string, IActionSystemDescription>();
-        private readonly Dictionary<string, IActionSystem> m_systems = new Dictionary<string, IActionSystem>();
+        private readonly Dictionary<string, IActionUpdateGroup> m_groups = new Dictionary<string, IActionUpdateGroup>();
+        private readonly Dictionary<string, IActionSystemDescribed> m_systems = new Dictionary<string, IActionSystemDescribed>();
 
-        public ActionModule(IApplication application, ActionModuleDescription description, IUpdateModule updateModule) : this(application, description, new ActionProvider(), new ActionContext { application }, updateModule)
+        public ActionModule(ActionModuleDescription description, IApplication application) : this(description, application, new ActionProvider(), new ActionContext { application }, application.GetModule<IUpdateModule>())
         {
         }
 
-        public ActionModule(IApplication application, ActionModuleDescription description, IActionProvider provider, IActionContext context, IUpdateModule updateModule) : base(application, description)
+        public ActionModule(ActionModuleDescription description, IApplication application, IActionProvider provider, IActionContext context, IUpdateModule updateModule) : base(description, application)
         {
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
             Context = context ?? throw new ArgumentNullException(nameof(context));
-            Groups = new ReadOnlyDictionary<string, IActionUpdateGroupDescription>(m_groupDescriptions);
-            Systems = new ReadOnlyDictionary<string, IActionSystemDescription>(m_systemDescriptions);
             UpdateModule = updateModule ?? throw new ArgumentNullException(nameof(updateModule));
+            Groups = new ReadOnlyDictionary<string, IActionUpdateGroup>(m_groups);
+            Systems = new ReadOnlyDictionary<string, IActionSystemDescribed>(m_systems);
         }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            foreach (KeyValuePair<string, IActionUpdateGroupDescription> pair in Description.Groups)
+            foreach (KeyValuePair<string, IActionUpdateGroupBuilder> pair in Description.Groups)
             {
-                AddGroup(pair.Key, pair.Value);
+                IActionUpdateGroup group = pair.Value.Build(Provider, Context);
+
+                AddGroup(pair.Key, group);
             }
 
-            foreach (KeyValuePair<string, IActionSystemDescription> pair in Description.Systems)
+            foreach (KeyValuePair<string, IActionSystemBuilder> pair in Description.Systems)
             {
-                AddSystem(pair.Key, pair.Value);
+                var system = pair.Value.Build<IActionSystemDescribed>();
+
+                AddSystem(pair.Key, system);
             }
         }
 
@@ -55,44 +57,60 @@ namespace UGF.Module.Actions.Runtime
         {
             base.OnUninitialize();
 
-            while (m_systemDescriptions.Count > 0)
+            while (m_systems.Count > 0)
             {
-                KeyValuePair<string, IActionSystemDescription> pair = m_systemDescriptions.First();
+                string id = m_systems.First().Key;
 
-                RemoveSystem(pair.Key);
+                RemoveSystem(id);
             }
 
-            while (m_groupDescriptions.Count > 0)
+            while (m_groups.Count > 0)
             {
-                KeyValuePair<string, IActionUpdateGroupDescription> pair = m_groupDescriptions.First();
+                string id = m_groups.First().Key;
 
-                RemoveGroup(pair.Key);
+                RemoveGroup(id);
             }
         }
 
-        public void AddGroup(string id, IActionUpdateGroupDescription description)
+        public void AddGroup(string id, IActionUpdateGroup group)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
-            if (description == null) throw new ArgumentNullException(nameof(description));
+            if (group == null) throw new ArgumentNullException(nameof(group));
 
-            IUpdateGroup updateGroup = UpdateModule.GetGroup(description.UpdateGroupId);
-            IActionUpdateGroup group = description.Build(Provider, Context);
+            UpdateModule.AddGroup(id, group);
 
-            m_groupDescriptions.Add(id, description);
-            updateGroup.Add(group);
+            m_groups.Add(id, group);
         }
 
         public bool RemoveGroup(string id)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
 
-            if (m_groupDescriptions.TryGetValue(id, out IActionUpdateGroupDescription description))
-            {
-                IUpdateGroup updateGroup = UpdateModule.GetGroup(description.UpdateGroupId);
-                IUpdateGroup group = updateGroup.GetSubGroup(description.Name);
+            return m_groups.Remove(id) && UpdateModule.RemoveGroup(id);
+        }
 
-                m_groupDescriptions.Remove(id);
-                updateGroup.Remove(group);
+        public void AddSystem(string id, IActionSystemDescribed system)
+        {
+            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+            if (system == null) throw new ArgumentNullException(nameof(system));
+
+            IActionUpdateGroup group = GetGroup(system.Description.GroupId);
+
+            m_systems.Add(id, system);
+            group.Collection.Add(system);
+        }
+
+        public bool RemoveSystem(string id)
+        {
+            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+
+            if (TryGetSystem(id, out IActionSystemDescribed system))
+            {
+                IActionUpdateGroup group = GetGroup(system.Description.GroupId);
+
+                m_systems.Remove(id);
+                group.Collection.Remove(system);
+
                 return true;
             }
 
@@ -125,61 +143,22 @@ namespace UGF.Module.Actions.Runtime
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
 
-            if (m_groupDescriptions.TryGetValue(id, out IActionUpdateGroupDescription groupDescription)
-                && UpdateModule.TryGetGroup(groupDescription.UpdateGroupId, out IUpdateGroup updateGroup)
-                && updateGroup.TryGetSubGroup(groupDescription.Name, out group))
-            {
-                return true;
-            }
-
-            group = default;
-            return false;
+            return m_groups.TryGetValue(id, out group);
         }
 
-        public void AddSystem(string id, IActionSystemDescription description)
-        {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
-            if (description == null) throw new ArgumentNullException(nameof(description));
-
-            IActionUpdateGroup group = GetGroup(description.GroupId);
-            IActionSystem system = description.Build();
-
-            m_systemDescriptions.Add(id, description);
-            m_systems.Add(id, system);
-            group.Collection.Add(system);
-        }
-
-        public bool RemoveSystem(string id)
-        {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
-
-            if (m_systemDescriptions.TryGetValue(id, out IActionSystemDescription description))
-            {
-                IActionSystem system = m_systems[id];
-                IActionUpdateGroup group = GetGroup(description.GroupId);
-
-                m_systemDescriptions.Remove(id);
-                m_systems.Remove(id);
-                group.Collection.Remove(system);
-                return true;
-            }
-
-            return false;
-        }
-
-        public T GetSystem<T>(string id) where T : class, IActionSystem
+        public T GetSystem<T>(string id) where T : class, IActionSystemDescribed
         {
             return (T)GetSystem(id);
         }
 
-        public IActionSystem GetSystem(string id)
+        public IActionSystemDescribed GetSystem(string id)
         {
-            return TryGetSystem(id, out IActionSystem system) ? system : throw new ArgumentException($"Action system not found by the specified id: '{id}'.");
+            return TryGetSystem(id, out IActionSystemDescribed system) ? system : throw new ArgumentException($"Action system not found by the specified id: '{id}'.");
         }
 
-        public bool TryGetSystem<T>(string id, out T system) where T : class, IActionSystem
+        public bool TryGetSystem<T>(string id, out T system) where T : class, IActionSystemDescribed
         {
-            if (TryGetSystem(id, out IActionSystem value))
+            if (TryGetSystem(id, out IActionSystemDescribed value))
             {
                 system = (T)value;
                 return true;
@@ -189,7 +168,7 @@ namespace UGF.Module.Actions.Runtime
             return false;
         }
 
-        public bool TryGetSystem(string id, out IActionSystem system)
+        public bool TryGetSystem(string id, out IActionSystemDescribed system)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
 
