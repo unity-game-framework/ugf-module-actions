@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime
 {
-    [CreateAssetMenu(menuName = "Unity Game Framework/Actions/Action System")]
+    [CreateAssetMenu(menuName = "Unity Game Framework/Actions/Action System", order = 2000)]
     public class ActionSystemAsset : ActionSystemAssetBase
     {
         [AssetGuid(typeof(ActionUpdateGroupAssetBase))]
