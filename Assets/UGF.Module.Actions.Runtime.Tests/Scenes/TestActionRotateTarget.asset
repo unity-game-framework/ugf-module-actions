@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60f68712268844888d1df2f3df1b49f4, type: 3}
-  m_Name: ActionRotateTarget
+  m_Name: TestActionRotateTarget
   m_EditorClassIdentifier: 
   m_speed: 50

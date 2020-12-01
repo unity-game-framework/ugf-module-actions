@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fd9421a096d4c7eaaaf8b0b4af0cded, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cc484ca72264857bd2c04e722359d8f, type: 3}
   m_Name: ActionSystemUpdate
   m_EditorClassIdentifier: 
   m_group: 9e10bfff3e3d74b4b8e9f0918114a67b
   m_actions:
-  - m_guid: be458c06d08f0a14c8a68b297192514c
-    m_asset: {fileID: 11400000, guid: be458c06d08f0a14c8a68b297192514c, type: 2}
+  - {fileID: 11400000, guid: 9a7001bebf6a7994f887f83d64dfa6b6, type: 2}
