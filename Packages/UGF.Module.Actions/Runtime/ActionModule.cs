@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using UGF.Actions.Runtime;
 using UGF.Application.Runtime;
+using UGF.Logs.Runtime;
 using UGF.Module.Update.Runtime;
 
 namespace UGF.Module.Actions.Runtime
@@ -38,6 +39,12 @@ namespace UGF.Module.Actions.Runtime
         {
             base.OnInitialize();
 
+            Log.Debug("Action module initialize", new
+            {
+                groups = Description.Groups.Count,
+                systems = Description.Systems.Count
+            });
+
             foreach (KeyValuePair<string, IActionUpdateGroupBuilder> pair in Description.Groups)
             {
                 IActionUpdateGroup group = pair.Value.Build(Provider, Context);
@@ -56,6 +63,12 @@ namespace UGF.Module.Actions.Runtime
         protected override void OnUninitialize()
         {
             base.OnUninitialize();
+
+            Log.Debug("Action module uninitialize", new
+            {
+                groups = m_groups.Count,
+                systems = m_systems.Count
+            });
 
             while (m_systems.Count > 0)
             {
@@ -80,11 +93,23 @@ namespace UGF.Module.Actions.Runtime
             UpdateModule.AddGroup(id, group);
 
             m_groups.Add(id, group);
+
+            Log.Debug("Add action update group", new
+            {
+                id,
+                group.Name,
+                group.Description.SystemType
+            });
         }
 
         public bool RemoveGroup(string id)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+
+            Log.Debug("Remove action update group", new
+            {
+                id
+            });
 
             return m_groups.Remove(id) && UpdateModule.RemoveGroup(id);
         }
@@ -98,6 +123,12 @@ namespace UGF.Module.Actions.Runtime
 
             m_systems.Add(id, system);
             group.Collection.Add(system);
+
+            Log.Debug("Add action system", new
+            {
+                id,
+                system.Description.GroupId
+            });
         }
 
         public bool RemoveSystem(string id)
@@ -110,6 +141,12 @@ namespace UGF.Module.Actions.Runtime
 
                 m_systems.Remove(id);
                 group.Collection.Remove(system);
+
+                Log.Debug("Remove action system", new
+                {
+                    id,
+                    system.Description.GroupId
+                });
 
                 return true;
             }
