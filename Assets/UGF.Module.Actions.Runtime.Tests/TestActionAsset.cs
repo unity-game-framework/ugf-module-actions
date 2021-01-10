@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UGF.Module.Actions.Runtime.Tests
 {
     [CreateAssetMenu(menuName = "Tests/TestActionDescriptionAsset")]
-    public class TestActionAsset : ActionDescribedAsset<TestActionDescription>
+    public class TestActionAsset : ActionDescribedAsset<TestAction, TestActionDescription>
     {
         [SerializeField] private int m_value;
 
@@ -15,7 +15,7 @@ namespace UGF.Module.Actions.Runtime.Tests
             return new TestActionDescription(m_value);
         }
 
-        protected override IAction OnBuild(TestActionDescription description)
+        protected override TestAction OnBuild(TestActionDescription description)
         {
             return new TestAction(description);
         }
