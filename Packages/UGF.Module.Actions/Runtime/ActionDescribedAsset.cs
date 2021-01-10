@@ -1,9 +1,11 @@
 ﻿using System;
 using UGF.Actions.Runtime;
+using UGF.Builder.Runtime;
+using UGF.Description.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public abstract class ActionDescribedAsset<TDescription> : ActionAssetBase where TDescription : IActionDescription
+    public abstract class ActionDescribedAsset<TDescription> : ActionAssetBase, IDescribedBuilder, IDescriptionBuilder where TDescription : class, IActionDescription
     {
         protected override IAction OnBuild()
         {
@@ -16,5 +18,25 @@ namespace UGF.Module.Actions.Runtime
 
         protected abstract TDescription OnBuildDescription();
         protected abstract IAction OnBuild(TDescription description);
+
+        T IBuilder<IDescribed>.Build<T>()
+        {
+            return (T)OnBuild();
+        }
+
+        IDescribed IBuilder<IDescribed>.Build()
+        {
+            return (IDescribed)OnBuild();
+        }
+
+        T IBuilder<IDescription>.Build<T>()
+        {
+            return (T)(object)OnBuildDescription();
+        }
+
+        IDescription IBuilder<IDescription>.Build()
+        {
+            return OnBuildDescription();
+        }
     }
 }
