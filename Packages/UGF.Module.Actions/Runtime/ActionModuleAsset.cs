@@ -16,7 +16,10 @@ namespace UGF.Module.Actions.Runtime
 
         protected override IApplicationModuleDescription OnBuildDescription()
         {
-            var description = new ActionModuleDescription(typeof(IActionModule));
+            var description = new ActionModuleDescription
+            {
+                RegisterType = typeof(IActionModule)
+            };
 
             for (int i = 0; i < m_groups.Count; i++)
             {
