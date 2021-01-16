@@ -4,14 +4,14 @@ UGF.Module.Actions
 
 ## Info
 
-- **Version**: `1.1.0`
+- **Version**: `1.2.0`
 - **Unity**: `2020.2`
 - **API Compatibility Level**: `.NET Standard 2.0`
 
 ### Dependencies
 
-- `com.ugf.actions`: `1.0.1`
-- `com.ugf.module.update`: `2.0.0`
+- `com.ugf.actions`: `2.0.0`
+- `com.ugf.module.update`: `2.1.0`
 
 
 ### Description
