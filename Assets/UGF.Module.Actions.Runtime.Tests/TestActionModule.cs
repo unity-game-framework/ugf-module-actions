@@ -4,6 +4,7 @@ using UGF.Application.Runtime;
 using UGF.Module.Update.Runtime;
 using UGF.Update.Runtime;
 using UnityEngine;
+using UnityEngine.LowLevel;
 using UnityEngine.TestTools;
 
 namespace UGF.Module.Actions.Runtime.Tests
@@ -24,7 +25,7 @@ namespace UGF.Module.Actions.Runtime.Tests
 
             application.Uninitialize();
 
-            Debug.Log(application.GetModule<IUpdateModule>().Provider.UpdateLoop.GetPlayerLoop().Print());
+            Debug.Log(PlayerLoop.GetCurrentPlayerLoop().Print());
         }
 
         [UnityTest]
@@ -45,7 +46,7 @@ namespace UGF.Module.Actions.Runtime.Tests
 
             application.Uninitialize();
 
-            Debug.Log(application.GetModule<IUpdateModule>().Provider.UpdateLoop.GetPlayerLoop().Print());
+            Debug.Log(PlayerLoop.GetCurrentPlayerLoop().Print());
         }
 
         [UnityTest]
