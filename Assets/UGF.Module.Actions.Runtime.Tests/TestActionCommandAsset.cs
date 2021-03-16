@@ -1,4 +1,5 @@
 ﻿using UGF.Actions.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime.Tests
@@ -25,7 +26,7 @@ namespace UGF.Module.Actions.Runtime.Tests
 
     public class TestActionCommandAction : Action<TestActionCommand>
     {
-        protected override void OnExecute(IActionProvider provider, IActionContext context, TestActionCommand command)
+        protected override void OnExecute(IActionProvider provider, IContext context, TestActionCommand command)
         {
             if (context.TryGet(out TestActionCommandTarget target))
             {

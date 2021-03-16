@@ -1,5 +1,6 @@
 ﻿using System;
 using UGF.Actions.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime.Tests
@@ -38,7 +39,7 @@ namespace UGF.Module.Actions.Runtime.Tests
         {
         }
 
-        protected override void OnExecute(IActionProvider provider, IActionContext context, TestActionRotateTargetCommand command)
+        protected override void OnExecute(IActionProvider provider, IContext context, TestActionRotateTargetCommand command)
         {
             command.Transform.Rotate(command.Rotation * Description.Speed * Time.deltaTime);
         }

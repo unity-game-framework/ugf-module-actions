@@ -1,31 +1,22 @@
-﻿using System;
-using UGF.Actions.Runtime;
-using UGF.EditorTools.Runtime.IMGUI.Types;
+﻿using UGF.Actions.Runtime;
+using UGF.Description.Runtime;
 using UGF.Module.Update.Runtime;
-using UnityEngine;
+using UGF.RuntimeTools.Runtime.Contexts;
 
 namespace UGF.Module.Actions.Runtime
 {
-    [CreateAssetMenu(menuName = "Unity Game Framework/Actions/Action Update Group", order = 2000)]
-    public class ActionUpdateGroupAsset : ActionUpdateGroupAssetBase
+    public abstract class ActionUpdateGroupAsset : DescribedWithDescriptionBuilderAsset<(IActionProvider provider, IContext context), IActionUpdateGroup, IUpdateGroupDescription>, IActionUpdateGroupBuilder
     {
-        [SerializeField] private string m_name;
-        [UpdateSystemTypeDropdown]
-        [SerializeField] private TypeReference<object> m_systemType;
-
-        public string Name { get { return m_name; } set { m_name = value; } }
-        public TypeReference<object> SystemType { get { return m_systemType; } set { m_systemType = value; } }
-
-        protected override IUpdateGroupDescription OnBuildDescription()
+        public IActionUpdateGroup Build(IActionProvider provider, IContext context)
         {
-            Type type = m_systemType.Get();
-
-            return new UpdateGroupDescription(type);
+            return OnBuild((provider, context));
         }
 
-        protected override IActionUpdateGroup OnBuild(IActionProvider provider, IActionContext context, IUpdateGroupDescription description)
+        protected override IActionUpdateGroup OnBuild((IActionProvider provider, IContext context) arguments, IUpdateGroupDescription description)
         {
-            return new ActionUpdateGroup<IUpdateGroupDescription>(m_name, description, provider, context);
+            return OnBuild(arguments.provider, arguments.context, description);
         }
+
+        protected abstract IActionUpdateGroup OnBuild(IActionProvider provider, IContext context, IUpdateGroupDescription description);
     }
 }

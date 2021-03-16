@@ -4,7 +4,7 @@ using UGF.Description.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public class ActionSystemDescribed<TDescription> : ActionSystem, IActionSystemDescribed where TDescription : class, IActionSystemDescription
+    public class ActionSystemDescribed<TDescription> : ActionSystem, IDescribed<IActionSystemDescription> where TDescription : class, IActionSystemDescription
     {
         public TDescription Description { get; }
 

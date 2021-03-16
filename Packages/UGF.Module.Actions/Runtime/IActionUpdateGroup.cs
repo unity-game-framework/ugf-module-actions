@@ -1,12 +1,13 @@
 ﻿using UGF.Actions.Runtime;
-using UGF.Module.Update.Runtime;
+using UGF.Description.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 using UGF.Update.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public interface IActionUpdateGroup : IUpdateGroupDescribed, IUpdateGroup<IActionSystem>
+    public interface IActionUpdateGroup : IUpdateGroup<IActionSystem>, IDescribed
     {
         IActionProvider Provider { get; }
-        IActionContext Context { get; }
+        IContext Context { get; }
     }
 }
