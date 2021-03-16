@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -167,6 +167,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -228,6 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 420716392}
+  - component: {fileID: 420716395}
   - component: {fileID: 420716394}
   - component: {fileID: 420716393}
   m_Layer: 0
@@ -274,14 +276,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 420716391}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 405f91ce92a6464b885e6bbc3ce62627, type: 3}
+  m_Script: {fileID: 11500000, guid: 668ff42ef33b4dea9eba1f6d5c16bcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_useReverseModulesUninitialization: 1
+  m_provideStaticInstance: 1
+--- !u!114 &420716395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420716391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe62d66d7b2471486cb6b94f22fb807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_builder: {fileID: 420716394}
   m_resourceLoader: {fileID: 420716393}
   m_launchOnStart: 1
   m_stopOnQuit: 1
-  m_useReverseModulesUninitialization: 1
-  m_provideStaticInstance: 1
+  m_sceneAccess: 1
 --- !u!1 &659429174
 GameObject:
   m_ObjectHideFlags: 0
