@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview) - 2021-03-16  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-actions/milestone/3?closed=1)  
+    
+
+### Changed
+
+- Update action and application package ([#15](https://github.com/unity-game-framework/ugf-module-actions/pull/15))  
+    - Update dependencies: `com.ugf.actions` to `3.0.0-preview` version and `com.ugf.module.update` to `3.0.0-preview` version.
+    - Add `ActionSystemProvider` provider to manage action systems.
+    - Add `ActionUpdateGroupProvider` provider to manage action update groups.
+    - Change `IActionModule` and implementation to work using `IProvider` classes for _Groups_ and _Systems_, and remove all old related methods.
+    - Change name of `ActionSystemAsset` class to `ActionSystemDefaultAsset`.
+    - Change name of `ActionUpdateGroupAssetBase` class to `ActionUpdateGroupAsset`.
+    - Change name of `ActionUpdateGroupAsset` class to `ActionUpdateGroupDefaultAsset`.
+    - Change name of `ActionAssetBase` class to `ActionAsset`.
+    - Remove `IActionContext` and replace by `IContext` from _UGF.RuntimeTools_ package.
+    - Remove `IUpdateGroupDescribed` interface.
+    - Remove deprecated code.
+- Update package registry ([#14](https://github.com/unity-game-framework/ugf-module-actions/pull/14))  
+    - Update package publish registry.
+
 ## [1.2.0](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/1.2.0) - 2021-01-16  
 
 ### Release Notes
