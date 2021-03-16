@@ -1,12 +1,9 @@
 ﻿using UGF.Actions.Runtime;
+using UGF.Builder.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public abstract class ActionAsset<TAction> : ActionAssetBase where TAction : class, IAction, new()
+    public abstract class ActionAsset : BuilderAsset<IAction>, IActionBuilder
     {
-        protected override IAction OnBuild()
-        {
-            return new TAction();
-        }
     }
 }

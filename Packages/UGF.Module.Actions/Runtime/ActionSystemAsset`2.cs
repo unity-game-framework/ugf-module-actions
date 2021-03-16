@@ -5,10 +5,11 @@ using UGF.Description.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    [Obsolete("ActionDescribedAsset`1 has been deprecated. Use ActionDescribedAsset`2 instead.")]
-    public abstract class ActionDescribedAsset<TDescription> : ActionAssetBase, IDescribedBuilder, IDescriptionBuilder where TDescription : class, IActionDescription
+    public abstract class ActionSystemAsset<TDescribed, TDescription> : ActionSystemAsset, IDescribedBuilder, IDescriptionBuilder
+        where TDescribed : class, IActionSystem, IDescribed
+        where TDescription : class, IActionSystemDescription
     {
-        protected override IAction OnBuild()
+        protected override IActionSystem OnBuild()
         {
             TDescription description = OnBuildDescription();
 
@@ -18,7 +19,7 @@ namespace UGF.Module.Actions.Runtime
         }
 
         protected abstract TDescription OnBuildDescription();
-        protected abstract IAction OnBuild(TDescription description);
+        protected abstract TDescribed OnBuild(TDescription description);
 
         T IBuilder<IDescribed>.Build<T>()
         {

@@ -5,7 +5,7 @@ using UGF.Description.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public abstract class ActionDescribedAsset<TDescribed, TDescription> : ActionAssetBase, IDescribedBuilder, IDescriptionBuilder
+    public abstract class ActionDescribedAsset<TDescribed, TDescription> : ActionAsset, IDescribedBuilder, IDescriptionBuilder
         where TDescribed : class, IAction, IDescribed
         where TDescription : class, IActionDescription
     {
