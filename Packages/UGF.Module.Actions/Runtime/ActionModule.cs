@@ -6,13 +6,14 @@ using UGF.Actions.Runtime;
 using UGF.Application.Runtime;
 using UGF.Logs.Runtime;
 using UGF.Module.Update.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 
 namespace UGF.Module.Actions.Runtime
 {
     public class ActionModule : ApplicationModule<ActionModuleDescription>, IActionModule
     {
         public IActionProvider Provider { get; }
-        public IActionContext Context { get; }
+        public IContext Context { get; }
         public IUpdateModule UpdateModule { get; }
         public IReadOnlyDictionary<string, IActionUpdateGroup> Groups { get; }
         public IReadOnlyDictionary<string, IActionSystemDescribed> Systems { get; }
@@ -22,11 +23,11 @@ namespace UGF.Module.Actions.Runtime
         private readonly Dictionary<string, IActionUpdateGroup> m_groups = new Dictionary<string, IActionUpdateGroup>();
         private readonly Dictionary<string, IActionSystemDescribed> m_systems = new Dictionary<string, IActionSystemDescribed>();
 
-        public ActionModule(ActionModuleDescription description, IApplication application) : this(description, application, new ActionProvider(), new ActionContext { application }, application.GetModule<IUpdateModule>())
+        public ActionModule(ActionModuleDescription description, IApplication application) : this(description, application, new ActionProvider(), new Context { application }, application.GetModule<IUpdateModule>())
         {
         }
 
-        public ActionModule(ActionModuleDescription description, IApplication application, IActionProvider provider, IActionContext context, IUpdateModule updateModule) : base(description, application)
+        public ActionModule(ActionModuleDescription description, IApplication application, IActionProvider provider, IContext context, IUpdateModule updateModule) : base(description, application)
         {
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
             Context = context ?? throw new ArgumentNullException(nameof(context));
@@ -90,15 +91,14 @@ namespace UGF.Module.Actions.Runtime
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (group == null) throw new ArgumentNullException(nameof(group));
 
-            UpdateModule.AddGroup(id, group);
+            UpdateModule.Groups.Add(id, group);
 
             m_groups.Add(id, group);
 
             Log.Debug("Add action update group", new
             {
                 id,
-                group.Name,
-                group.Description.SystemType
+                group.Name
             });
         }
 
@@ -111,7 +111,7 @@ namespace UGF.Module.Actions.Runtime
                 id
             });
 
-            return m_groups.Remove(id) && UpdateModule.RemoveGroup(id);
+            return m_groups.Remove(id) && UpdateModule.Groups.Remove(id);
         }
 
         public void AddSystem(string id, IActionSystemDescribed system)

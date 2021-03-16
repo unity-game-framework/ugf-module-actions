@@ -6,7 +6,7 @@ using UGF.Description.Runtime;
 namespace UGF.Module.Actions.Runtime
 {
     public abstract class ActionDescribedAsset<TDescribed, TDescription> : ActionAssetBase, IDescribedBuilder, IDescriptionBuilder
-        where TDescribed : class, IActionDescribed
+        where TDescribed : class, IAction, IDescribed
         where TDescription : class, IActionDescription
     {
         protected override IAction OnBuild()
@@ -28,7 +28,7 @@ namespace UGF.Module.Actions.Runtime
 
         IDescribed IBuilder<IDescribed>.Build()
         {
-            return (IActionDescribed)OnBuild();
+            return (IDescribed)OnBuild();
         }
 
         T IBuilder<IDescription>.Build<T>()

@@ -1,21 +1,22 @@
 ﻿using UGF.Actions.Runtime;
 using UGF.Description.Runtime;
 using UGF.Module.Update.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public abstract class ActionUpdateGroupAssetBase : DescribedWithDescriptionBuilderAsset<(IActionProvider provider, IActionContext context), IActionUpdateGroup, IUpdateGroupDescription>, IActionUpdateGroupBuilder
+    public abstract class ActionUpdateGroupAssetBase : DescribedWithDescriptionBuilderAsset<(IActionProvider provider, IContext context), IActionUpdateGroup, IUpdateGroupDescription>, IActionUpdateGroupBuilder
     {
-        public IActionUpdateGroup Build(IActionProvider provider, IActionContext context)
+        public IActionUpdateGroup Build(IActionProvider provider, IContext context)
         {
             return OnBuild((provider, context));
         }
 
-        protected override IActionUpdateGroup OnBuild((IActionProvider provider, IActionContext context) arguments, IUpdateGroupDescription description)
+        protected override IActionUpdateGroup OnBuild((IActionProvider provider, IContext context) arguments, IUpdateGroupDescription description)
         {
             return OnBuild(arguments.provider, arguments.context, description);
         }
 
-        protected abstract IActionUpdateGroup OnBuild(IActionProvider provider, IActionContext context, IUpdateGroupDescription description);
+        protected abstract IActionUpdateGroup OnBuild(IActionProvider provider, IContext context, IUpdateGroupDescription description);
     }
 }

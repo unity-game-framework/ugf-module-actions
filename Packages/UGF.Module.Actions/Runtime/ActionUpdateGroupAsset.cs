@@ -2,6 +2,7 @@
 using UGF.Actions.Runtime;
 using UGF.EditorTools.Runtime.IMGUI.Types;
 using UGF.Module.Update.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime
@@ -23,7 +24,7 @@ namespace UGF.Module.Actions.Runtime
             return new UpdateGroupDescription(type);
         }
 
-        protected override IActionUpdateGroup OnBuild(IActionProvider provider, IActionContext context, IUpdateGroupDescription description)
+        protected override IActionUpdateGroup OnBuild(IActionProvider provider, IContext context, IUpdateGroupDescription description)
         {
             return new ActionUpdateGroup<IUpdateGroupDescription>(m_name, description, provider, context);
         }

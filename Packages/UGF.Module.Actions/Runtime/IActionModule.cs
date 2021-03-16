@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UGF.Actions.Runtime;
 using UGF.Application.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 
 namespace UGF.Module.Actions.Runtime
 {
@@ -8,7 +9,7 @@ namespace UGF.Module.Actions.Runtime
     {
         new IActionModuleDescription Description { get; }
         IActionProvider Provider { get; }
-        IActionContext Context { get; }
+        IContext Context { get; }
         IReadOnlyDictionary<string, IActionUpdateGroup> Groups { get; }
         IReadOnlyDictionary<string, IActionSystemDescribed> Systems { get; }
 
