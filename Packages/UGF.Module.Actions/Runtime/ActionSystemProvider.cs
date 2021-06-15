@@ -23,7 +23,7 @@ namespace UGF.Module.Actions.Runtime
 
         protected override void OnAdd(string id, IActionSystem entry)
         {
-            if (!(entry is IDescribed<IActionSystemDescription> described)) throw new ArgumentException("Entry must be of 'IDescribed<IUpdateGroupDescription>' type.", nameof(entry));
+            if (!(entry is IDescribed<IActionSystemDescription> described)) throw new ArgumentException("Entry must be of 'IDescribed<IActionSystemDescription>' type.", nameof(entry));
 
             IUpdateGroup group = UpdateGroupProvider.Get(described.Description.GroupId);
 
@@ -40,7 +40,7 @@ namespace UGF.Module.Actions.Runtime
 
         protected override bool OnRemove(string id, IActionSystem entry)
         {
-            if (!(entry is IDescribed<IActionSystemDescription> described)) throw new ArgumentException("Entry must be of 'IDescribed<IUpdateGroupDescription>' type.", nameof(entry));
+            if (!(entry is IDescribed<IActionSystemDescription> described)) throw new ArgumentException("Entry must be of 'IDescribed<IActionSystemDescription>' type.", nameof(entry));
 
             IUpdateGroup group = UpdateGroupProvider.Get(described.Description.GroupId);
 
