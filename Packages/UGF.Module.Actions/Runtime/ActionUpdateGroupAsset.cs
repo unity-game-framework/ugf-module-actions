@@ -1,22 +1,19 @@
 ﻿using UGF.Actions.Runtime;
-using UGF.Description.Runtime;
+using UGF.Application.Runtime;
 using UGF.Module.Update.Runtime;
-using UGF.RuntimeTools.Runtime.Contexts;
+using UGF.Update.Runtime;
+using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public abstract class ActionUpdateGroupAsset : DescribedWithDescriptionBuilderAsset<(IActionProvider provider, IContext context), IActionUpdateGroup, IUpdateGroupDescription>, IActionUpdateGroupBuilder
+    [CreateAssetMenu(menuName = "Unity Game Framework/Actions/Action Update Group", order = 2000)]
+    public class ActionUpdateGroupAsset : UpdateGroupAsset<IActionSystem, IUpdateGroupDescription>
     {
-        public IActionUpdateGroup Build(IActionProvider provider, IContext context)
+        protected override IUpdateCollection OnBuildCollection(IUpdateGroupDescription description, IApplication application)
         {
-            return OnBuild((provider, context));
-        }
+            var actionModule = application.GetModule<IActionModule>();
 
-        protected override IActionUpdateGroup OnBuild((IActionProvider provider, IContext context) arguments, IUpdateGroupDescription description)
-        {
-            return OnBuild(arguments.provider, arguments.context, description);
+            return new UpdateListHandler<IActionSystem>(item => item.Execute(actionModule.Provider, actionModule.Context));
         }
-
-        protected abstract IActionUpdateGroup OnBuild(IActionProvider provider, IContext context, IUpdateGroupDescription description);
     }
 }

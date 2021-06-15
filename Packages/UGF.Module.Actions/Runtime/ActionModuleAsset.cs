@@ -9,10 +9,8 @@ namespace UGF.Module.Actions.Runtime
     [CreateAssetMenu(menuName = "Unity Game Framework/Actions/Action Module", order = 2000)]
     public class ActionModuleAsset : ApplicationModuleAsset<IActionModule, ActionModuleDescription>
     {
-        [SerializeField] private List<AssetReference<ActionUpdateGroupAsset>> m_groups = new List<AssetReference<ActionUpdateGroupAsset>>();
         [SerializeField] private List<AssetReference<ActionSystemAsset>> m_systems = new List<AssetReference<ActionSystemAsset>>();
 
-        public List<AssetReference<ActionUpdateGroupAsset>> Groups { get { return m_groups; } }
         public List<AssetReference<ActionSystemAsset>> Systems { get { return m_systems; } }
 
         protected override IApplicationModuleDescription OnBuildDescription()
@@ -21,13 +19,6 @@ namespace UGF.Module.Actions.Runtime
             {
                 RegisterType = typeof(IActionModule)
             };
-
-            for (int i = 0; i < m_groups.Count; i++)
-            {
-                AssetReference<ActionUpdateGroupAsset> reference = m_groups[i];
-
-                description.Groups.Add(reference.Guid, reference.Asset);
-            }
 
             for (int i = 0; i < m_systems.Count; i++)
             {

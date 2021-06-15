@@ -8,7 +8,6 @@ namespace UGF.Module.Actions.Runtime
     public interface IActionModule : IApplicationModule
     {
         new IActionModuleDescription Description { get; }
-        IProvider<string, IActionUpdateGroup> Groups { get; }
         IProvider<string, IActionSystem> Systems { get; }
         IActionProvider Provider { get; }
         IContext Context { get; }
