@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: UpdateModule
   m_EditorClassIdentifier: 
   m_systems: []
-  m_groups: []
+  m_groups:
+  - m_guid: 7e5ac70abaf315c4f94ee28576d4b515
+    m_asset: {fileID: 11400000, guid: 7e5ac70abaf315c4f94ee28576d4b515, type: 2}
+  m_subGroups: []
+  m_entries:
+  - m_group: 7e5ac70abaf315c4f94ee28576d4b515
+    m_builder: {fileID: 11400000, guid: 03cc195c4d5bfe042b87503d16be49a4, type: 2}
