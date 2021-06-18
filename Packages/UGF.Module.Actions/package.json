@@ -20,6 +20,6 @@
   },
   "dependencies": {
     "com.ugf.actions": "3.0.0-preview",
-    "com.ugf.module.update": "3.0.0-preview"
+    "com.ugf.module.update": "3.0.0-preview.1"
   }
 }
