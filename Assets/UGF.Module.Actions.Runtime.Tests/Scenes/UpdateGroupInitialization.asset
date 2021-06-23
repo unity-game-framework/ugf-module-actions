@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2ecbea1a794f1ebebfe706331ceef3, type: 3}
-  m_Name: ActionUpdateGroup
+  m_Script: {fileID: 11500000, guid: be251784c8ef4e4797c35fc66930f18c, type: 3}
+  m_Name: UpdateGroupInitialization
   m_EditorClassIdentifier: 
-  m_systemType:
-    m_value: UnityEngine.PlayerLoop.Update, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
