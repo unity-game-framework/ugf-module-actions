@@ -1,61 +1,53 @@
 using System;
-using System.Collections.Generic;
 using UGF.Actions.Runtime;
 using UGF.Application.Runtime;
-using UGF.Logs.Runtime;
+using UGF.Module.Actions.Runtime.Provider;
+using UGF.Module.Update.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
-using UGF.RuntimeTools.Runtime.Providers;
 using UGF.Update.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
     public class ActionModule : ApplicationModule<ActionModuleDescription>, IActionModule
     {
-        public IProvider<string, IActionUpdateGroup> Groups { get; }
-        public IProvider<string, IActionSystem> Systems { get; }
+        public IUpdateModule UpdateModule { get; }
         public IActionProvider Provider { get; }
         public IContext Context { get; }
+        public IUpdateGroup ProviderApplyQueueUpdateGroup { get { return m_providerApplyQueueUpdateGroup ?? throw new ArgumentException("Provider apply queue update group not created."); } }
+        public bool HasProviderApplyQueueUpdateGroup { get { return m_providerApplyQueueUpdateGroup != null; } }
 
         IActionModuleDescription IActionModule.Description { get { return Description; } }
 
-        public ActionModule(ActionModuleDescription description, IApplication application, IProvider<string, IUpdateGroup> updateGroupProvider) : this(description, application, new ActionUpdateGroupProvider(updateGroupProvider), new ActionSystemProvider(updateGroupProvider))
+        private readonly IUpdateGroup m_providerApplyQueueUpdateGroup;
+
+        public ActionModule(ActionModuleDescription description, IApplication application) : this(description, application, application.GetModule<IUpdateModule>(), new ActionProvider(), new Context { application })
         {
         }
 
-        public ActionModule(ActionModuleDescription description, IApplication application, IProvider<string, IActionUpdateGroup> groups, IProvider<string, IActionSystem> systems) : this(description, application, groups, systems, new ActionProvider(), new Context { application })
+        public ActionModule(ActionModuleDescription description, IApplication application, IUpdateModule updateModule, IActionProvider provider, IContext context) : base(description, application)
         {
-        }
-
-        public ActionModule(ActionModuleDescription description, IApplication application, IProvider<string, IActionUpdateGroup> groups, IProvider<string, IActionSystem> systems, IActionProvider provider, IContext context) : base(description, application)
-        {
-            Groups = groups ?? throw new ArgumentNullException(nameof(groups));
-            Systems = systems ?? throw new ArgumentNullException(nameof(systems));
+            UpdateModule = updateModule ?? throw new ArgumentNullException(nameof(updateModule));
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
             Context = context ?? throw new ArgumentNullException(nameof(context));
+
+            if (Description.ProviderApplyQueueUpdateGroupCreate)
+            {
+                m_providerApplyQueueUpdateGroup = new UpdateGroup<IUpdateHandler>(new UpdateList<IUpdateHandler>());
+
+                m_providerApplyQueueUpdateGroup.Collection.Add(new ActionSystemUpdatable(Provider, Context)
+                {
+                    new ProviderApplyQueueAction()
+                });
+            }
         }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            Log.Debug("Action module initialize", new
+            if (HasProviderApplyQueueUpdateGroup)
             {
-                groups = Description.Groups.Count,
-                systems = Description.Systems.Count
-            });
-
-            foreach (KeyValuePair<string, IActionUpdateGroupBuilder> pair in Description.Groups)
-            {
-                IActionUpdateGroup group = pair.Value.Build(Provider, Context);
-
-                Groups.Add(pair.Key, group);
-            }
-
-            foreach (KeyValuePair<string, IActionSystemBuilder> pair in Description.Systems)
-            {
-                IActionSystem system = pair.Value.Build();
-
-                Systems.Add(pair.Key, system);
+                UpdateModule.Provider.AddWithSubSystemType(m_providerApplyQueueUpdateGroup, Description.ProviderApplyQueueUpdateGroupTargetSystemType);
             }
         }
 
@@ -63,14 +55,10 @@ namespace UGF.Module.Actions.Runtime
         {
             base.OnUninitialize();
 
-            Log.Debug("Action module uninitialize", new
+            if (HasProviderApplyQueueUpdateGroup)
             {
-                groups = Groups.Entries.Count,
-                systems = Systems.Entries.Count
-            });
-
-            Systems.Clear();
-            Groups.Clear();
+                UpdateModule.Provider.Remove(m_providerApplyQueueUpdateGroup);
+            }
         }
     }
 }

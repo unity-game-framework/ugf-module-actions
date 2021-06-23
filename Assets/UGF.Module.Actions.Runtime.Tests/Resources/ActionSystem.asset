@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2cc484ca72264857bd2c04e722359d8f, type: 3}
-  m_Name: ActionSystemUpdate
+  m_Name: ActionSystem
   m_EditorClassIdentifier: 
   m_group: 9e10bfff3e3d74b4b8e9f0918114a67b
   m_actions:

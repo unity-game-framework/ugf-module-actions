@@ -13,4 +13,16 @@ MonoBehaviour:
   m_Name: UpdateModule
   m_EditorClassIdentifier: 
   m_systems: []
-  m_groups: []
+  m_groups:
+  - m_subSystemType:
+      m_value: UnityEngine.PlayerLoop.Update, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    m_group:
+      m_guid: 58a7d718404755148afb5e78a52485bf
+      m_asset: {fileID: 11400000, guid: 58a7d718404755148afb5e78a52485bf, type: 2}
+  m_subGroups: []
+  m_entries:
+  - m_group: 58a7d718404755148afb5e78a52485bf
+    m_builder:
+      m_guid: ef356bfaef72f6b47984027102fe32ab
+      m_asset: {fileID: 11400000, guid: ef356bfaef72f6b47984027102fe32ab, type: 2}

@@ -2,7 +2,7 @@
 using UGF.Module.Actions.Runtime.Provider;
 using UnityEditor;
 
-namespace UGF.Module.Actions.Editor.Actions
+namespace UGF.Module.Actions.Editor.Provider
 {
     [CustomEditor(typeof(ProviderApplyQueueActionAsset), true)]
     internal class ProviderApplyQueueActionAssetEditor : UnityEditor.Editor
