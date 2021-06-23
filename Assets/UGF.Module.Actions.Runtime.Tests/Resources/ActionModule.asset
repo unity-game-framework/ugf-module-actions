@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a133d3802f49dd9e3899c4d8df4b2f, type: 3}
   m_Name: ActionModule
   m_EditorClassIdentifier: 
-  m_groups:
-  - m_guid: 5044dfbc6e688034886f027c08fb8619
-    m_asset: {fileID: 11400000, guid: 5044dfbc6e688034886f027c08fb8619, type: 2}
-  - m_guid: 9e10bfff3e3d74b4b8e9f0918114a67b
-    m_asset: {fileID: 11400000, guid: 9e10bfff3e3d74b4b8e9f0918114a67b, type: 2}
-  m_systems:
-  - m_guid: 1abc1c4ca4a2465419af59406e6a2292
-    m_asset: {fileID: 11400000, guid: 1abc1c4ca4a2465419af59406e6a2292, type: 2}
-  - m_guid: 03cc195c4d5bfe042b87503d16be49a4
-    m_asset: {fileID: 11400000, guid: 03cc195c4d5bfe042b87503d16be49a4, type: 2}
+  m_providerApplyQueueUpdateGroupCreate: 1
+  m_providerApplyQueueUpdateGroupTargetSystemType:
+    m_value: UnityEngine.PlayerLoop.Initialization, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null

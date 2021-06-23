@@ -15,12 +15,6 @@ MonoBehaviour:
   m_systems: []
   m_groups:
   - m_subSystemType:
-      m_value: UnityEngine.PlayerLoop.Initialization, UnityEngine.CoreModule, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    m_group:
-      m_guid: e4121eb3431e4fc40a3fc8e53a97a67c
-      m_asset: {fileID: 11400000, guid: e4121eb3431e4fc40a3fc8e53a97a67c, type: 2}
-  - m_subSystemType:
       m_value: UnityEngine.PlayerLoop.Update, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     m_group:
@@ -28,10 +22,6 @@ MonoBehaviour:
       m_asset: {fileID: 11400000, guid: 58a7d718404755148afb5e78a52485bf, type: 2}
   m_subGroups: []
   m_entries:
-  - m_group: e4121eb3431e4fc40a3fc8e53a97a67c
-    m_builder:
-      m_guid: 1abc1c4ca4a2465419af59406e6a2292
-      m_asset: {fileID: 11400000, guid: 1abc1c4ca4a2465419af59406e6a2292, type: 2}
   - m_group: 58a7d718404755148afb5e78a52485bf
     m_builder:
       m_guid: 03cc195c4d5bfe042b87503d16be49a4
