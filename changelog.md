@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview.1](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview.1) - 2021-06-23  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-actions/milestone/4?closed=1)  
+    
+
+### Changed
+
+- Update update module dependency ([#17](https://github.com/unity-game-framework/ugf-module-actions/pull/17))  
+    - Update dependencies: `com.ugf.module.update` to `3.0.0-preview.2` version.
+    - Add `ActionModule.ProviderApplyQueueUpdateGroup` as default update group with action system and provider apply queue action.
+    - Add `ActionSystemUpdatable` which implements `IUpdateHandler` and can be usable inside of update group.
+    - Change `ActionModule` to contains only `IActionProvider` and `IContext` entities.
+    - Change `ActionSystemDefaultAsset` to build `ActionSystem` without description.
+    - Change `ActionUpdateGroupDefaultAsset` class to `ActionUpdateGroupAsset` which build `UpdateGroup` to update contained actions systems.
+    - Remove `ActionSystemProvider` class, use `UpdateModule` instead to register action system in any update group.
+    - Remove `ActionUpdateGroupProvider` class. use `UpdateModule` to register any update group.
+    - Remove `ActionUpdateGroup` class. use regular `UpdateGroup` instead.
+    - Remove `ActionSystemDescribed` and `ActionSystemDescription` classes.
+    - Remove `ActionSystemAsset<TDescribed, TDescription>` class.
+
 ## [2.0.0-preview](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview) - 2021-03-16  
 
 ### Release Notes
