@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace UGF.Module.Actions.Editor
 {
-    [CustomEditor(typeof(ActionSystemDefaultAsset), true)]
+    [CustomEditor(typeof(ActionSystemUpdatableAsset), true)]
     internal class ActionSystemAssetEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyScript;
