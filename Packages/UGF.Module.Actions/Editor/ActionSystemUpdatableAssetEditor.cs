@@ -6,7 +6,7 @@ using UnityEditor;
 namespace UGF.Module.Actions.Editor
 {
     [CustomEditor(typeof(ActionSystemUpdatableAsset), true)]
-    internal class ActionSystemAssetEditor : UnityEditor.Editor
+    internal class ActionSystemUpdatableAssetEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyScript;
         private ReorderableListDrawer m_listActions;
