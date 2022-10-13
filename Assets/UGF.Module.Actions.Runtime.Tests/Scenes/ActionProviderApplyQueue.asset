@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cc484ca72264857bd2c04e722359d8f, type: 3}
-  m_Name: New Action System Asset
+  m_Script: {fileID: 11500000, guid: 5c658f8394ed402da060cc5c3a64ee9c, type: 3}
+  m_Name: ActionProviderApplyQueue
   m_EditorClassIdentifier: 
-  m_group: 
-  m_actions: []

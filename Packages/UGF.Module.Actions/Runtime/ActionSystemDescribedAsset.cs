@@ -6,11 +6,11 @@ using UGF.Description.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public abstract class ActionDescribedAsset<TAction, TDescription> : ActionAsset, IDescribedBuilder<IApplication>, IDescriptionBuilder
-        where TAction : class, IAction, IDescribed
-        where TDescription : class, IActionDescription
+    public abstract class ActionSystemDescribedAsset<TSystem, TDescription> : ActionSystemAsset, IDescribedBuilder<IApplication>, IDescriptionBuilder
+        where TSystem : class, IActionSystem
+        where TDescription : class, IDescription
     {
-        protected override IAction OnBuild(IApplication arguments)
+        protected override IActionSystem OnBuild(IApplication arguments)
         {
             TDescription description = OnBuildDescription();
 
@@ -20,7 +20,7 @@ namespace UGF.Module.Actions.Runtime
         }
 
         protected abstract TDescription OnBuildDescription();
-        protected abstract TAction OnBuild(TDescription description, IApplication application);
+        protected abstract TSystem OnBuild(TDescription description, IApplication application);
 
         T IBuilder<IApplication, IDescribed>.Build<T>(IApplication arguments)
         {

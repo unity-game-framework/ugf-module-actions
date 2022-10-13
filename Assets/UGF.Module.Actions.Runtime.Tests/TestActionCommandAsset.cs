@@ -1,12 +1,17 @@
 ﻿using UGF.Actions.Runtime;
+using UGF.Application.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
 using UnityEngine;
 
 namespace UGF.Module.Actions.Runtime.Tests
 {
     [CreateAssetMenu(menuName = "Tests/TestActionCommandAsset")]
-    public class TestActionCommandAsset : ActionAsset<TestActionCommandAction>
+    public class TestActionCommandAsset : ActionAsset
     {
+        protected override IAction OnBuild(IApplication arguments)
+        {
+            return new TestActionCommandAction();
+        }
     }
 
     public class TestActionCommandTarget
@@ -24,7 +29,7 @@ namespace UGF.Module.Actions.Runtime.Tests
         }
     }
 
-    public class TestActionCommandAction : Action<TestActionCommand>
+    public class TestActionCommandAction : UGF.Actions.Runtime.Action<TestActionCommand>
     {
         protected override void OnExecute(IActionProvider provider, IContext context, TestActionCommand command)
         {

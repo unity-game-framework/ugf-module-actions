@@ -1,64 +1,89 @@
 using System;
+using System.Threading.Tasks;
 using UGF.Actions.Runtime;
 using UGF.Application.Runtime;
-using UGF.Module.Actions.Runtime.Provider;
+using UGF.Builder.Runtime;
+using UGF.EditorTools.Runtime.Ids;
+using UGF.Initialize.Runtime;
 using UGF.Module.Update.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
-using UGF.Update.Runtime;
+using UGF.RuntimeTools.Runtime.Providers;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public class ActionModule : ApplicationModule<ActionModuleDescription>, IActionModule
+    public class ActionModule : ApplicationModuleAsync<ActionModuleDescription>, IActionModule
     {
-        public IUpdateModule UpdateModule { get; }
+        public IProvider<GlobalId, IActionSystem> Systems { get; } = new Provider<GlobalId, IActionSystem>();
         public IActionProvider Provider { get; }
         public IContext Context { get; }
-        public IUpdateGroup ProviderApplyQueueUpdateGroup { get { return m_providerApplyQueueUpdateGroup ?? throw new ArgumentException("Provider apply queue update group not created."); } }
-        public bool HasProviderApplyQueueUpdateGroup { get { return m_providerApplyQueueUpdateGroup != null; } }
+
+        protected IUpdateModule UpdateModule { get; }
 
         IActionModuleDescription IActionModule.Description { get { return Description; } }
 
-        private readonly IUpdateGroup m_providerApplyQueueUpdateGroup;
+        private readonly InitializeCollection<IActionSystem> m_systemInitialize = new InitializeCollection<IActionSystem>();
 
-        public ActionModule(ActionModuleDescription description, IApplication application) : this(description, application, application.GetModule<IUpdateModule>(), new ActionProvider(), new Context { application })
+        public ActionModule(ActionModuleDescription description, IApplication application) : this(description, application, new ActionProvider(), new Context { application })
         {
         }
 
-        public ActionModule(ActionModuleDescription description, IApplication application, IUpdateModule updateModule, IActionProvider provider, IContext context) : base(description, application)
+        public ActionModule(ActionModuleDescription description, IApplication application, IActionProvider provider, IContext context) : base(description, application)
         {
-            UpdateModule = updateModule ?? throw new ArgumentNullException(nameof(updateModule));
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
             Context = context ?? throw new ArgumentNullException(nameof(context));
 
-            if (Description.ProviderApplyQueueUpdateGroupCreate)
-            {
-                m_providerApplyQueueUpdateGroup = new UpdateGroup<IUpdateHandler>(new UpdateList<IUpdateHandler>());
-
-                m_providerApplyQueueUpdateGroup.Collection.Add(new ActionSystemUpdatable(Provider, Context)
-                {
-                    new ProviderApplyQueueAction()
-                });
-            }
+            UpdateModule = Application.GetModule<IUpdateModule>();
         }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
-            if (HasProviderApplyQueueUpdateGroup)
+            foreach ((GlobalId key, IBuilder<IApplication, IActionSystem> value) in Description.Systems)
             {
-                UpdateModule.Provider.AddWithSubSystemType(m_providerApplyQueueUpdateGroup, Description.ProviderApplyQueueUpdateGroupTargetSystemType);
+                IActionSystem system = value.Build(Application);
+
+                Systems.Add(key, system);
+
+                m_systemInitialize.Add(system);
             }
+
+            m_systemInitialize.Initialize();
+        }
+
+        protected override async Task OnInitializeAsync()
+        {
+            await m_systemInitialize.InitializeAsync();
         }
 
         protected override void OnUninitialize()
         {
             base.OnUninitialize();
 
-            if (HasProviderApplyQueueUpdateGroup)
-            {
-                UpdateModule.Provider.Remove(m_providerApplyQueueUpdateGroup);
-            }
+            m_systemInitialize.Uninitialize();
+            m_systemInitialize.Clear();
+
+            Systems.Clear();
+        }
+
+        public void AddCommand<T>(T command) where T : IActionCommand
+        {
+            Provider.Add(command);
+        }
+
+        public void ExecuteSystem(GlobalId id)
+        {
+            ExecuteSystem(id, Context);
+        }
+
+        public void ExecuteSystem(GlobalId id, IContext context)
+        {
+            if (!id.IsValid()) throw new ArgumentException("Value should be valid.", nameof(id));
+            if (context == null) throw new ArgumentNullException(nameof(context));
+
+            IActionSystem system = Systems.Get(id);
+
+            system.Execute(Provider, context);
         }
     }
 }

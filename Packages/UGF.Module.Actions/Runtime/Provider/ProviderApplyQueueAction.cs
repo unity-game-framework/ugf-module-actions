@@ -4,14 +4,18 @@ using UGF.RuntimeTools.Runtime.Contexts;
 
 namespace UGF.Module.Actions.Runtime.Provider
 {
-    public class ProviderApplyQueueAction : ActionBase
+    public class ProviderApplyQueueAction : Action
     {
+        protected IActionModule ActionModule { get; }
+
+        public ProviderApplyQueueAction(IApplication application) : base(application)
+        {
+            ActionModule = Application.GetModule<IActionModule>();
+        }
+
         protected override void OnExecute(IActionProvider provider, IContext context)
         {
-            var application = context.Get<IApplication>();
-            var module = application.GetModule<IActionModule>();
-
-            module.Provider.ApplyQueued();
+            ActionModule.Provider.ApplyQueued();
         }
     }
 }

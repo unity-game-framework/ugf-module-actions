@@ -1,4 +1,5 @@
 ﻿using UGF.Actions.Runtime;
+using UGF.Application.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace UGF.Module.Actions.Runtime.Tests
             return new TestActionDescription(m_value);
         }
 
-        protected override TestAction OnBuild(TestActionDescription description)
+        protected override TestAction OnBuild(TestActionDescription description, IApplication application)
         {
             return new TestAction(description);
         }
@@ -42,7 +43,7 @@ namespace UGF.Module.Actions.Runtime.Tests
         }
     }
 
-    public class TestActionDescription : ActionDescriptionBase
+    public class TestActionDescription : ActionDescription
     {
         public int Value { get; }
 
