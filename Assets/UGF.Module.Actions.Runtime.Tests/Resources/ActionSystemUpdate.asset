@@ -17,6 +17,10 @@ MonoBehaviour:
     m_second: 13800476926254447498
   m_actions:
   - m_guid:
-      m_first: 8760837639720927678
-      m_second: 13161452582666274808
-    m_asset: {fileID: 11400000, guid: 9a7001bebf6a7994f887f83d64dfa6b6, type: 2}
+      m_first: 13183238370902175493
+      m_second: 687624922606178282
+    m_asset: {fileID: 11400000, guid: 56ec6f054573b6f4ea8fa55239ef8a09, type: 2}
+  - m_guid:
+      m_first: 3707712778536407296
+      m_second: 9559527156079193595
+    m_asset: {fileID: 11400000, guid: b5d6d10071203374fbedccc64c43aa84, type: 2}

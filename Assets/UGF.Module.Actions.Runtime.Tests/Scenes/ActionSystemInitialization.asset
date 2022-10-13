@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b4fac8ca58f484991386923047e4fde, type: 3}
-  m_Name: ActionSystemUpdate
+  m_Name: ActionSystemInitialization
   m_EditorClassIdentifier: 
   m_updateGroup:
-    m_first: 6130595667932337944
-    m_second: 13800476926254447498
+    m_first: 3505091564861743857
+    m_second: 4248710614508476970
   m_actions:
   - m_guid:
-      m_first: 8760837639720927678
-      m_second: 13161452582666274808
-    m_asset: {fileID: 11400000, guid: 9a7001bebf6a7994f887f83d64dfa6b6, type: 2}
+      m_first: 9810222214190805621
+      m_second: 18270190149839966952
+    m_asset: {fileID: 11400000, guid: 847d3275e9208824e8520d4424c18cfd, type: 2}
