@@ -11,6 +11,7 @@ namespace UGF.Module.Actions.Runtime
         IActionProvider Provider { get; }
         IContext Context { get; }
 
+        void AddCommand<T>(T command) where T : IActionCommand;
         void ExecuteSystem(GlobalId id);
         void ExecuteSystem(GlobalId id, IContext context);
     }

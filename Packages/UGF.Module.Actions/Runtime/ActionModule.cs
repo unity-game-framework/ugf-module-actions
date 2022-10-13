@@ -66,6 +66,11 @@ namespace UGF.Module.Actions.Runtime
             Systems.Clear();
         }
 
+        public void AddCommand<T>(T command) where T : IActionCommand
+        {
+            Provider.Add(command);
+        }
+
         public void ExecuteSystem(GlobalId id)
         {
             ExecuteSystem(id, Context);
