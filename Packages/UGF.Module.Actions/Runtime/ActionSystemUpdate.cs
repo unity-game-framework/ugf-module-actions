@@ -1,16 +1,19 @@
-﻿using UGF.Application.Runtime;
+﻿using System;
+using UGF.Application.Runtime;
 using UGF.Module.Update.Runtime;
 using UGF.Update.Runtime;
 
 namespace UGF.Module.Actions.Runtime
 {
-    public class ActionSystemUpdate : ActionSystemDescribed<ActionSystemUpdateDescription>, IUpdateHandler
+    public class ActionSystemUpdate : ActionSystemList, IUpdateHandler
     {
+        public new ActionSystemUpdateDescription Description { get; }
         protected IActionModule ActionModule { get; }
         protected IUpdateModule UpdateModule { get; }
 
         public ActionSystemUpdate(ActionSystemUpdateDescription description, IApplication application) : base(description, application)
         {
+            Description = description ?? throw new ArgumentNullException(nameof(description));
             ActionModule = Application.GetModule<IActionModule>();
             UpdateModule = Application.GetModule<IUpdateModule>();
         }
