@@ -20,7 +20,7 @@ namespace UGF.Module.Actions.Runtime
             for (int i = 0; i < m_actions.Count; i++)
             {
                 ActionAsset asset = m_actions[i];
-                IAction action = asset.Build();
+                IAction action = asset.Build(arguments);
 
                 system.Add(action);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UGF.Actions.Runtime;
+using UGF.Application.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
 using UnityEngine;
 
@@ -17,13 +18,13 @@ namespace UGF.Module.Actions.Runtime.Tests
             return new TestActionRotateTargetDescription(m_speed);
         }
 
-        protected override TestActionRotateTarget OnBuild(TestActionRotateTargetDescription description)
+        protected override TestActionRotateTarget OnBuild(TestActionRotateTargetDescription description, IApplication application)
         {
             return new TestActionRotateTarget(description);
         }
     }
 
-    public class TestActionRotateTargetDescription : ActionDescriptionBase
+    public class TestActionRotateTargetDescription : ActionDescription
     {
         public float Speed { get; }
 

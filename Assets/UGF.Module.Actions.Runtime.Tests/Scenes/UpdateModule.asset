@@ -18,11 +18,17 @@ MonoBehaviour:
       m_value: UnityEngine.PlayerLoop.Update, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     m_group:
-      m_guid: 58a7d718404755148afb5e78a52485bf
+      m_guid:
+        m_first: 6130595667932337944
+        m_second: 13800476926254447498
       m_asset: {fileID: 11400000, guid: 58a7d718404755148afb5e78a52485bf, type: 2}
   m_subGroups: []
   m_entries:
-  - m_group: 58a7d718404755148afb5e78a52485bf
+  - m_group:
+      m_first: 6130595667932337944
+      m_second: 13800476926254447498
     m_builder:
-      m_guid: ef356bfaef72f6b47984027102fe32ab
+      m_guid:
+        m_first: 17777096906056756218
+        m_second: 12336201615760589945
       m_asset: {fileID: 11400000, guid: ef356bfaef72f6b47984027102fe32ab, type: 2}

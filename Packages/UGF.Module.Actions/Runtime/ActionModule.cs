@@ -10,25 +10,27 @@ namespace UGF.Module.Actions.Runtime
 {
     public class ActionModule : ApplicationModule<ActionModuleDescription>, IActionModule
     {
-        public IUpdateModule UpdateModule { get; }
         public IActionProvider Provider { get; }
         public IContext Context { get; }
         public IUpdateGroup ProviderApplyQueueUpdateGroup { get { return m_providerApplyQueueUpdateGroup ?? throw new ArgumentException("Provider apply queue update group not created."); } }
         public bool HasProviderApplyQueueUpdateGroup { get { return m_providerApplyQueueUpdateGroup != null; } }
 
+        protected IUpdateModule UpdateModule { get; }
+
         IActionModuleDescription IActionModule.Description { get { return Description; } }
 
         private readonly IUpdateGroup m_providerApplyQueueUpdateGroup;
 
-        public ActionModule(ActionModuleDescription description, IApplication application) : this(description, application, application.GetModule<IUpdateModule>(), new ActionProvider(), new Context { application })
+        public ActionModule(ActionModuleDescription description, IApplication application) : this(description, application, new ActionProvider(), new Context { application })
         {
         }
 
-        public ActionModule(ActionModuleDescription description, IApplication application, IUpdateModule updateModule, IActionProvider provider, IContext context) : base(description, application)
+        public ActionModule(ActionModuleDescription description, IApplication application, IActionProvider provider, IContext context) : base(description, application)
         {
-            UpdateModule = updateModule ?? throw new ArgumentNullException(nameof(updateModule));
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
             Context = context ?? throw new ArgumentNullException(nameof(context));
+
+            UpdateModule = Application.GetModule<IUpdateModule>();
 
             if (Description.ProviderApplyQueueUpdateGroupCreate)
             {
@@ -36,7 +38,7 @@ namespace UGF.Module.Actions.Runtime
 
                 m_providerApplyQueueUpdateGroup.Collection.Add(new ActionSystemUpdatable(Provider, Context)
                 {
-                    new ProviderApplyQueueAction()
+                    new ProviderApplyQueueAction(Application)
                 });
             }
         }
