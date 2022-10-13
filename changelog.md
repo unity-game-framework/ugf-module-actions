@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview.2](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview.2) - 2022-10-13  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-actions/milestone/5?closed=1)  
+    
+
+### Changed
+
+- Update project ([#18](https://github.com/unity-game-framework/ugf-module-actions/issues/18))  
+    - Update dependencies: `com.ugf.actions` to `3.0.0-preview.2` and `com.ugf.module.update` to `4.0.0-preview` versions.
+    - Update package _Unity_ version to `2022.1`.
+    - Update package _API Compatibility_ version to `.NET Standard 2.1`.
+    - Add `Action` class with application reference.
+    - Add `Action<TDescription>` and `Action<TDescription, TCommand>` abstract generic classes with description and application reference.
+    - Add `ActionSystemDescribed<T>` abstract generic and related classes used to implement action system with description.
+    - Add `ActionSystemList` and related classes as default implementation of system with actions described from system description.
+    - Add `ActionSystemUpdate` and related classes as implementation of `ActionSystemList` class with registration at the specified update group.
+    - Remove `ActionSystemUpdatable` class, replaced by `ActionSystemUpdate`.
+    - Remove `ActionAsset<TAction>` abstract generic class.
+
 ## [2.0.0-preview.1](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview.1) - 2021-06-23  
 
 ### Release Notes
