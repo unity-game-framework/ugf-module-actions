@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.ugf.actions": {
-      "version": "3.0.0-preview.2",
+      "version": "3.0.0-preview.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -91,7 +91,7 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.ugf.actions": "3.0.0-preview.2",
+        "com.ugf.actions": "3.0.0-preview.3",
         "com.ugf.module.update": "4.0.0-preview"
       }
     },
