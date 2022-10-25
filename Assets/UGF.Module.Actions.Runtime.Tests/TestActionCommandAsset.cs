@@ -29,7 +29,7 @@ namespace UGF.Module.Actions.Runtime.Tests
         }
     }
 
-    public class TestActionCommandAction : UGF.Actions.Runtime.Action<TestActionCommand>
+    public class TestActionCommandAction : ActionBase<TestActionCommand>
     {
         protected override void OnExecute(IActionProvider provider, IContext context, TestActionCommand command)
         {

@@ -4,7 +4,7 @@ using UGF.RuntimeTools.Runtime.Contexts;
 
 namespace UGF.Module.Actions.Runtime.Provider
 {
-    public class ProviderApplyQueueAction : Action
+    public class ProviderApplyQueueAction : ActionApplication
     {
         protected IActionModule ActionModule { get; }
 
