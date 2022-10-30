@@ -1,4 +1,5 @@
-﻿using UGF.EditorTools.Editor.IMGUI;
+﻿using UGF.EditorTools.Editor.Assets;
+using UGF.EditorTools.Editor.IMGUI;
 using UGF.EditorTools.Editor.IMGUI.Scopes;
 using UGF.Module.Actions.Runtime;
 using UnityEditor;
@@ -8,12 +9,12 @@ namespace UGF.Module.Actions.Editor
     [CustomEditor(typeof(ActionModuleAsset), true)]
     internal class ActionModuleAssetEditor : UnityEditor.Editor
     {
-        private ReorderableListDrawer m_listSystems;
+        private AssetIdReferenceListDrawer m_listSystems;
         private ReorderableListSelectionDrawer m_listSystemsSelection;
 
         private void OnEnable()
         {
-            m_listSystems = new ReorderableListDrawer(serializedObject.FindProperty("m_systems"))
+            m_listSystems = new AssetIdReferenceListDrawer(serializedObject.FindProperty("m_systems"))
             {
                 DisplayAsSingleLine = true
             };
