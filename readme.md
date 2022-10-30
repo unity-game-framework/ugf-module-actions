@@ -4,7 +4,7 @@ UGF.Module.Actions
 
 ## Information
 
-- **Version**: `2.0.0-preview.3`
+- **Version**: `2.0.0-preview.4`
 - **Unity**: `2022.1`
 - **API Compatibility Level**: `.NET Standard 2.1`
 
@@ -12,6 +12,7 @@ UGF.Module.Actions
 
 - `com.ugf.actions`: `3.0.0-preview.3`
 - `com.ugf.module.update`: `4.0.0-preview`
+- `com.ugf.editortools`: `2.13.0`
 
 
 ### Description

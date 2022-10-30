@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview.4](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview.4) - 2022-10-30  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-actions/milestone/7?closed=1)  
+    
+
+### Added
+
+- Add action collection asset ([#22](https://github.com/unity-game-framework/ugf-module-actions/issues/22))  
+    - Update dependencies: `com.ugf.editortools` to `2.13.0` version.
+    - Add `ActionCollectionAsset` class as collection of actions.
+    - Add `ActionSystemUpdateAsset.Collections` and `ActionSystemListAsset.Collections` properties as collections of action collections.
+    - Change editors to support asset replacements.
+
 ## [2.0.0-preview.3](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview.3) - 2022-10-25  
 
 ### Release Notes
