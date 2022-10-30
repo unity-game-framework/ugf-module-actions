@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "com.ugf.actions": "3.0.0-preview.3",
-    "com.ugf.module.update": "4.0.0-preview"
+    "com.ugf.module.update": "4.0.0-preview",
+    "com.ugf.editortools": "2.13.0"
   }
 }
