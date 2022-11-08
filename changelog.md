@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-preview.5](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview.5) - 2022-11-08  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-actions/milestone/8?closed=1)  
+    
+
+### Added
+
+- Add action with execute handlers ([#24](https://github.com/unity-game-framework/ugf-module-actions/issues/24))  
+    - Update dependencies: `com.ugf.actions` to `3.0.0-preview.4` version.
+    - Add `ActionApplicationExecuteList` and related classes.
+
 ## [2.0.0-preview.4](https://github.com/unity-game-framework/ugf-module-actions/releases/tag/2.0.0-preview.4) - 2022-10-30  
 
 ### Release Notes

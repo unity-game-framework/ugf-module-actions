@@ -4,13 +4,13 @@ UGF.Module.Actions
 
 ## Information
 
-- **Version**: `2.0.0-preview.4`
+- **Version**: `2.0.0-preview.5`
 - **Unity**: `2022.1`
 - **API Compatibility Level**: `.NET Standard 2.1`
 
 ### Dependencies
 
-- `com.ugf.actions`: `3.0.0-preview.3`
+- `com.ugf.actions`: `3.0.0-preview.4`
 - `com.ugf.module.update`: `4.0.0-preview`
 - `com.ugf.editortools`: `2.13.0`
 
